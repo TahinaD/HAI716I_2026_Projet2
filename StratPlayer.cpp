@@ -7,11 +7,6 @@ StratPlayer::StratPlayer(int chosenIDStrat, Strategie chosenStrat)
 
 }
 
-StratPlayer StratPlayer::operator=(const StratPlayer& other)
-{
-	return StratPlayer(other.IDStrat, other.strat);
-}
-
 int StratPlayer::getPoints() {
 	return pointsWon;
 }
@@ -22,6 +17,10 @@ string StratPlayer::getName(vector<string> stratsNames) {
 
 void StratPlayer::addPoints(int gain) {
 	pointsWon += gain;
+}
+
+void StratPlayer::clearPoints() {
+	pointsWon = 0;
 }
 
 void StratPlayer::increaseWins()
@@ -61,12 +60,20 @@ Choice StratPlayer::playRandom() {
 }
 
 Choice StratPlayer::playTitForTat(Choice prevAdvMove) {
-	return prevAdvMove = Choice::FT || prevAdvMove == Choice::D ? Choice::D : Choice::C;
+	return prevAdvMove == Choice::D ? Choice::D : Choice::C;
 }
 
 Choice StratPlayer::playTester(Choice preAdvMove) {
-	playedC = (playedC == 2 ? 0 : playedC++);
-	return preAdvMove == Choice::D ? playTitForTat(preAdvMove) : (playedC == 0 ? Choice::D : Choice::C);
+	if (preAdvMove == Choice::FT || playedC == 2) {
+		playedC = 0;
+		return Choice::D;
+	}
+	if (preAdvMove == Choice::D || playedC == -1) {
+		playedC = -1;
+		return playTitForTat(preAdvMove);
+	}
+	playedC++;
+	return Choice::C;
 }
 
 Choice StratPlayer::playJoss(Choice preAdvMove) {

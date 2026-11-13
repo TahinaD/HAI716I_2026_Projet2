@@ -15,11 +15,11 @@ class StratPlayer
 		const Strategie strat;
 
 		StratPlayer(int chosenIDStrat, Strategie chosenStrat);
-		StratPlayer operator=(const StratPlayer& other);
 
 		string getName(vector<string> stratsNames);
 		int getPoints();
 		void addPoints(int gain);
+		void clearPoints();
 		void increaseWins();
 
 		Choice playStrat(Choice preAdvMove);

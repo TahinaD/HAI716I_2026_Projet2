@@ -14,7 +14,7 @@ int turnResults(Choice playerMove, Choice advMove) {
 		points = ((advMove == Choice::C) ? 3 : 0);
 	else
 		points = ((advMove == Choice::C) ? 5 : 2);
-	cout << points << endl;
+	//cout << points << endl;
 	return points;
 }
 
@@ -31,8 +31,8 @@ void partie(StratPlayer &p1, StratPlayer &p2, unsigned int ntour) {
 		cout << p2Name << " joue " << (p2Move == Choice::C ? "C." : "D.") << endl;
 		p1.addPoints(turnResults(p1Move, p2Move));
 		p2.addPoints(turnResults(p2Move, p1Move));
-		//cout << p1Name << " a " << p1.getPoints() << "." << endl;
-		//cout << p2Name << " a " << p2.getPoints() << ".\n" << endl;
+		cout << p1Name << " a " << p1.getPoints() << "." << endl;
+		cout << p2Name << " a " << p2.getPoints() << ".\n" << endl;
 		prevP1Move = p1Move;
 		prevP2Move = p2Move;
 	}
@@ -45,6 +45,8 @@ void partie(StratPlayer &p1, StratPlayer &p2, unsigned int ntour) {
 		p1.getPoints() > p2.getPoints() ? p1.increaseWins() : p2.increaseWins();
 		cout << "Le vainqueur est " << (p1.getPoints() > p2.getPoints() ? p1Name : p2Name) << ".\n" << endl;
 	}
+	p1.clearPoints();
+	p2.clearPoints();
 }
 
 int main(int argc, char** argv) {
