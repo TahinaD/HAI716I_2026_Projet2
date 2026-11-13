@@ -11,11 +11,16 @@ enum Choice {C, D, FT};
 class StratPlayer
 {
 	public:
+		const int IDStrat;
+		const Strategie strat;
+
 		StratPlayer(int chosenIDStrat, Strategie chosenStrat);
+		StratPlayer operator=(const StratPlayer& other);
 
 		string getName(vector<string> stratsNames);
 		int getPoints();
 		void addPoints(int gain);
+		void increaseWins();
 
 		Choice playStrat(Choice preAdvMove);
 		Choice playAllD();
@@ -25,8 +30,7 @@ class StratPlayer
 		Choice playJoss(Choice preAdvMove);
 
 	private:
-		const int IDStrat;
-		const Strategie strat;
+		int gamesWon = 0;
 		int pointsWon = 0;
 		int playedC = 0;
 };

@@ -7,16 +7,26 @@ StratPlayer::StratPlayer(int chosenIDStrat, Strategie chosenStrat)
 
 }
 
+StratPlayer StratPlayer::operator=(const StratPlayer& other)
+{
+	return StratPlayer(other.IDStrat, other.strat);
+}
+
 int StratPlayer::getPoints() {
 	return pointsWon;
 }
 
 string StratPlayer::getName(vector<string> stratsNames) {
-	return stratsNames[IDStrat] + "_" + to_string(IDStrat);
+	return stratsNames[IDStrat];
 }
 
 void StratPlayer::addPoints(int gain) {
 	pointsWon += gain;
+}
+
+void StratPlayer::increaseWins()
+{
+	gamesWon++;
 }
 
 Choice StratPlayer::playStrat(Choice preAdvMove) {

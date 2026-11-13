@@ -20,7 +20,7 @@ int turnResults(Choice playerMove, Choice advMove) {
 
 void partie(StratPlayer &p1, StratPlayer &p2, unsigned int ntour) {
 	string p1Name = p1.getName(stratsNames), p2Name = p2.getName(stratsNames);
-	cout << p1Name << " vs " << p2Name << ".\n" << endl;
+	cout << "***** " << p1Name << " vs " << p2Name << " *****\n" << endl;
 	Choice p1Move, p2Move;
 	Choice prevP1Move = Choice::FT, prevP2Move = Choice::FT;
 	for (unsigned int tour = 0; tour < ntour; tour++) {
@@ -31,8 +31,8 @@ void partie(StratPlayer &p1, StratPlayer &p2, unsigned int ntour) {
 		cout << p2Name << " joue " << (p2Move == Choice::C ? "C." : "D.") << endl;
 		p1.addPoints(turnResults(p1Move, p2Move));
 		p2.addPoints(turnResults(p2Move, p1Move));
-		cout << p1Name << " a " << p1.getPoints() << "." << endl;
-		cout << p2Name << " a " << p2.getPoints() << ".\n" << endl;
+		//cout << p1Name << " a " << p1.getPoints() << "." << endl;
+		//cout << p2Name << " a " << p2.getPoints() << ".\n" << endl;
 		prevP1Move = p1Move;
 		prevP2Move = p2Move;
 	}
@@ -41,8 +41,10 @@ void partie(StratPlayer &p1, StratPlayer &p2, unsigned int ntour) {
 	cout << p2Name << " a " << p2.getPoints() << "." << endl;
 	if (p1.getPoints() == p2.getPoints())
 		cout << "Egalite.\n" << endl;
-	else
+	else {
+		p1.getPoints() > p2.getPoints() ? p1.increaseWins() : p2.increaseWins();
 		cout << "Le vainqueur est " << (p1.getPoints() > p2.getPoints() ? p1Name : p2Name) << ".\n" << endl;
+	}
 }
 
 int main(int argc, char** argv) {
@@ -53,12 +55,16 @@ int main(int argc, char** argv) {
 
 	srand(atoi(argv[1]));
 	
-	unsigned int ntour = 20;
-	//nStrats = availableStrats.size();
+	unsigned int ntour = 10;
+	int nStrats = availableStrats.size();
 	vector<StratPlayer> players;
-	for (int i = 0; i < 2; i++) {
-		players.push_back(StratPlayer(i, availableStrats[i]));
+	for (int k = 0; k < nStrats; k++) {
+		players.push_back(StratPlayer(k, availableStrats[k]));
 	}
-	partie(players[0], players[1], ntour);
+
+	for (int i = 0; i < nStrats; i++) {
+		for (int j = i+1; j < nStrats; j++)
+			partie(players[i], players[j], ntour);
+	}
 	return 0;
 }

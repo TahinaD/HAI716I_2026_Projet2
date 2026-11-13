@@ -1,0 +1,3 @@
+Vendredi 13/11/2026 :
+20 tours, ALL-D contre RANDOM, graine de 40.
+Problèmes de relation main/StratPlayer (attributs définits const, dédoublage des variables hors classe)
