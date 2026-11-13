@@ -1,3 +1,14 @@
 Vendredi 13/11/2026 :
 20 tours, ALL-D contre RANDOM, graine de 40.
 Problèmes de relation main/StratPlayer (attributs définits const, dédoublage des variables hors classe)
+
+passage au tournoi tous contre tous, 10 tours pour lisibilité, graine 40.
+Tester ne faisait pas le résultat attendu car le compteur de C était mise à jour avant de savoir si C est effectivement joué.
+Le tournoi fonctionne, il y a bien eu un JOSS démarrant avec D.
+
+ALL-D vs RANDOM : ALL-D gagne (si RANDOM joue C, ALL-D gagne 5, si RANDOM joue D, ALL-D gagne autant)
+ALL-D vs TIT-FOR-TAT : ALL-D gagne (trahison de 5 pour le premier tour pour ALL-D, puis autant)
+ALL-D vs TESTER : Egalite (Tester commence par D puis TIT-FOR-TAT)
+ALL-D vs JOSS : Egalite si Joss commence par D, ALL-D gagne sinon
+
+TIT-FOR-TAT perd contre RANDOM car RANDOM trahit du tour 5 jusqu'à la fin, donc TIT-FOR-TAT ne récupère pas la différence.

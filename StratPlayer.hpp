@@ -17,7 +17,8 @@ class StratPlayer
 		StratPlayer(int chosenIDStrat, Strategie chosenStrat);
 
 		string getName(vector<string> stratsNames);
-		int getPoints();
+		int getPoints() const;
+		int getWins() const;
 		void addPoints(int gain);
 		void clearPoints();
 		void increaseWins();

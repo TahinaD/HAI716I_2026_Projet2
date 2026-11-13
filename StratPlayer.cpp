@@ -7,8 +7,12 @@ StratPlayer::StratPlayer(int chosenIDStrat, Strategie chosenStrat)
 
 }
 
-int StratPlayer::getPoints() {
+int StratPlayer::getPoints() const {
 	return pointsWon;
+}
+
+int StratPlayer::getWins() const {
+	return gamesWon;
 }
 
 string StratPlayer::getName(vector<string> stratsNames) {

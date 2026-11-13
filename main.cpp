@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 #include "StratPlayer.hpp"
 using namespace std;
 
@@ -49,6 +50,20 @@ void partie(StratPlayer &p1, StratPlayer &p2, unsigned int ntour) {
 	p2.clearPoints();
 }
 
+void podium(vector<StratPlayer> players, int nStrats) {
+	vector<int> podium = vector<int>(nStrats, 0);
+	for (int i = 0; i < nStrats; i++)
+		podium[i] = i;
+	sort(podium.begin(), podium.end(), 
+	[&players](int a, int b)
+	{
+		return players[a].getWins() > players[b].getWins();
+	});
+	cout << "Classement du tournoi : " << endl;
+	for (int k = 0; k < nStrats; k++)
+		cout << k+1 << " : " << players[podium[k]].getName(stratsNames) << endl;
+}
+
 int main(int argc, char** argv) {
 	if (argc != 2) {
 		cout << "Entrez une graine." << endl;
@@ -68,5 +83,6 @@ int main(int argc, char** argv) {
 		for (int j = i+1; j < nStrats; j++)
 			partie(players[i], players[j], ntour);
 	}
+	podium(players, nStrats);
 	return 0;
 }
