@@ -19,6 +19,7 @@ class StratPlayer
 		string getName(vector<string> stratsNames);
 		int getPoints() const;
 		void addPoints(int gain);
+		void endOfGame(bool clearPoints, vector<Strategie> availableStrats);
 
 		Choice playStrat(Choice prevAdvMove);
 		Choice playAllD();

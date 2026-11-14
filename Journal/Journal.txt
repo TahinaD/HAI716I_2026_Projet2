@@ -19,10 +19,12 @@ J'ai mal lu le critère de classement du tournoi (je pensais que c'était par no
 Le classement est le même. TIT-FOR-TAT perd contre ALL-D car ALL-D gagne contre tous, et JOSS bat TIT-FOR-TAT en commençant par D.
 
 Nouvelles stratégies, toutes deux issues de mon imagination :
-- ALTERNATOR-C : C au premier tour, puis effectue le choix opposé à celui qu'il a fait au tour précédent.
+- ALTERNATOR-C : C au premier tour, puis effectue le choix opposé à celui qu'il a fait au tour précédent. Commence par C pour mettre en confiance les testeurs de coopération comme TESTER.
 - FOUR-T : Ten Turn Trust Tester, effectue C durant les 5 premiers tours, puis D durant les 5 suivant, puis change de stratégie selon les réponses de l'adversaire au bout de ces 10 tours :
-    * majoritairement C peu importe son choix : à définir
-    * majoritairement D peu importe son choix : à définir
-    * majoritairement C s'il choisit C et majoritairement D s'il choisit D : à définir
-    * majoritairement D s'il choisit C et majoritairement C s'il choisit D : à définir
-peu éventuellement évoluer en Thirty TTT s'il y a assez de tours.
+    * majoritairement C peu importe son choix : TESTER (essaye de soutirer des points) 
+    * majoritairement D peu importe son choix : ALL-D (stratégie défensive)
+    * majoritairement C s'il choisit C et majoritairement D s'il choisit D : TIT-FOR-TAT (réciproque par sécurité)
+    * majoritairement D s'il choisit C et majoritairement C s'il choisit D : ALTERNATORC (peut trahir après une trahison)
+A évolué en Thirty TTT : mallus des 15 tours de coopération. Avoir ALL-D comme stratégie après n'importe quelle décision aurait été plus efficace, mais moins intéressant.
+
+Ajout de deux arguments : choix entre FOUR-T contre tous en 40 tours chacun, ou tournoi Axelrod de 200 tours chacun + afficher les choix/résultats de chaque tour ou juste le résultat de chaque partie.

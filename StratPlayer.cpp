@@ -18,6 +18,14 @@ void StratPlayer::addPoints(int gain) {
 	pointsWon += gain;
 }
 
+void StratPlayer::endOfGame(bool clearPoints, vector<Strategie> availableStrats) {
+	pointsWon = (clearPoints ? 0 : pointsWon);
+	nAdvResp = -1;
+	playedC = 2;
+	advresponses = vector(4, 0);
+	strat = availableStrats[IDStrat];
+}
+
 Choice StratPlayer::playStrat(Choice prevAdvMove) {
 	switch(strat) {
 		case Strategie::ALLD:
@@ -76,27 +84,38 @@ Choice StratPlayer::playAlternatorC() {
 void StratPlayer::chooseNextStrat() {
 	int diffRespC = advresponses[1] - advresponses[0];
 	int diffRespD = advresponses[3] - advresponses[2];
-	if (diffRespC < 0 && diffRespD < 0) //overall coop
+	//cout << diffRespC << " " << diffRespD << endl;
+	if (diffRespC < 0 && diffRespD < 0) { //overall coop
+		cout << "Estimation FOUR-T : cooperation leaning. Switch to TESTER." << endl;
+		strat = Strategie::TESTER;
+	}
+	else if (diffRespC > 0 && diffRespD > 0) { //overall deceit
+		cout << "Estimation FOUR-T : deceit leaning. Switch to ALL-D." << endl;
 		strat = Strategie::ALLD;
-	else if (diffRespC > 0 && diffRespD > 0) //overall deceit
-		strat = Strategie::ALLD;
-	else if (diffRespC > 0 && diffRespD < 0) //overall tit-for-tat
-		strat = Strategie::ALLD;
-	else //overall deceit-to-forgive
-		strat = Strategie::ALLD;
+	}
+	else if (diffRespC < 0 && diffRespD > 0) { //overall tit-for-tat
+		cout << "Estimation FOUR-T : tit-for-tat leaning. Switch to TIT-FOR-TAT." << endl;
+		strat = Strategie::TITFORTAT;
+	}
+	else { //overall opposite
+		cout << "Estimation FOUR-T : opposite leaning. Switch to ALTERNATOR-C" << endl;
+		strat = Strategie::ALTERNATORC;
+	}
 }
 
 Choice StratPlayer::playFourT(Choice prevAdvMove) {
 	nAdvResp++;
-	if (nAdvResp >= 10) {
-		if (strat == Strategie::FOURT)
-			chooseNextStrat();
-		return playStrat(prevAdvMove);
-	}
-	if (nAdvResp < 5) {
-		if (prevAdvMove != Choice::FT)
+	//cout << nAdvResp << endl;
+	if (nAdvResp < 16) {
+		if (prevAdvMove != Choice::FT) {
 			prevAdvMove == Choice::C ? advresponses[0]++ : advresponses[1]++;
-	} else
+			//cout << advresponses[0] << " " << advresponses[1] << " " << advresponses[2] << " " << advresponses[3] << endl;
+		}
+	} else {
 		prevAdvMove == Choice::C ? advresponses[2]++ : advresponses[3]++;
-	return nAdvResp < 5 ? Choice::C : Choice::D;
+		//cout << advresponses[0] << " " << advresponses[1] << " " << advresponses[2] << " " << advresponses[3] << endl;
+		if (nAdvResp >= 30)
+			chooseNextStrat();
+	}
+	return strat != Strategie::FOURT ? playStrat(prevAdvMove) : (nAdvResp < 15 ? Choice::C : Choice::D);
 }
