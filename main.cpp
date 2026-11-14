@@ -1,10 +1,9 @@
-#include <iostream>
 #include <algorithm>
 #include "StratPlayer.hpp"
 using namespace std;
 
-vector<Strategie> availableStrats = {ALLD, RANDOM, TITFORTAT, TESTER, JOSS};
-vector<string> stratsNames = {"ALL-D", "RANDOM", "TIT-FOR-TAT", "TESTER", "JOSS"};
+vector<Strategie> availableStrats = {ALLD, RANDOM, TITFORTAT, TESTER, JOSS, ALTERNATORC, FOURT};
+vector<string> stratsNames = {"ALL-D", "RANDOM", "TIT-FOR-TAT", "TESTER", "JOSS", "ALTERNATOR-C", "FOUR-T"};
 
 int turnResults(Choice playerMove, Choice advMove) {
 	int points;
@@ -21,7 +20,7 @@ int turnResults(Choice playerMove, Choice advMove) {
 
 void partie(StratPlayer &p1, StratPlayer &p2, unsigned int ntour) {
 	string p1Name = p1.getName(stratsNames), p2Name = p2.getName(stratsNames);
-	cout << "***** " << p1Name << " vs " << p2Name << " *****\n" << endl;
+	cout << "\n********** " << p1Name << " vs " << p2Name << " **********\n" << endl;
 	Choice p1Move, p2Move;
 	Choice prevP1Move = Choice::FT, prevP2Move = Choice::FT;
 	for (unsigned int tour = 0; tour < ntour; tour++) {
@@ -38,16 +37,8 @@ void partie(StratPlayer &p1, StratPlayer &p2, unsigned int ntour) {
 		prevP2Move = p2Move;
 	}
 	cout << "Fin de la partie. Resultats :" << endl;
-	cout << p1Name << " a " << p1.getPoints() << "." << endl;
-	cout << p2Name << " a " << p2.getPoints() << "." << endl;
-	if (p1.getPoints() == p2.getPoints())
-		cout << "Egalite.\n" << endl;
-	else {
-		p1.getPoints() > p2.getPoints() ? p1.increaseWins() : p2.increaseWins();
-		cout << "Le vainqueur est " << (p1.getPoints() > p2.getPoints() ? p1Name : p2Name) << ".\n" << endl;
-	}
-	p1.clearPoints();
-	p2.clearPoints();
+	cout << p1Name << " a au total " << p1.getPoints() << " points." << endl;
+	cout << p2Name << " a au total " << p2.getPoints() << " points.\n" << endl;
 }
 
 void podium(vector<StratPlayer> players, int nStrats) {
@@ -57,11 +48,13 @@ void podium(vector<StratPlayer> players, int nStrats) {
 	sort(podium.begin(), podium.end(), 
 	[&players](int a, int b)
 	{
-		return players[a].getWins() > players[b].getWins();
+		return players[a].getPoints() > players[b].getPoints();
 	});
 	cout << "Classement du tournoi : " << endl;
-	for (int k = 0; k < nStrats; k++)
-		cout << k+1 << " : " << players[podium[k]].getName(stratsNames) << endl;
+	for (int k = 0; k < nStrats; k++) {
+		cout << k+1 << " : " << players[podium[k]].getName(stratsNames);
+		cout << " avec " << players[podium[k]].getPoints() << " points." << endl;
+	}
 }
 
 int main(int argc, char** argv) {
@@ -73,7 +66,7 @@ int main(int argc, char** argv) {
 	srand(atoi(argv[1]));
 	
 	unsigned int ntour = 10;
-	int nStrats = availableStrats.size();
+	int nStrats = 5;//availableStrats.size();
 	vector<StratPlayer> players;
 	for (int k = 0; k < nStrats; k++) {
 		players.push_back(StratPlayer(k, availableStrats[k]));
