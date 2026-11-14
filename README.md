@@ -27,6 +27,18 @@ FOUR-T contre tous avec affichage des résultats de tours :
 ./projet2 ft print_turns
 ```
 
+Tournoi Axelrod sans FOUR-T et ALTERNATOR-C, sans affichage des résultats de tours :
+
+```
+./projet2 axelrod_base
+```
+
+Tournoi Axelrod sans FOUR-T et ALTERNATOR-C avec affichage des résultats de tours :
+
+```
+./projet2 axelrod_base print_turns
+```
+
 Tournoi Axelrod sans affichage des résultats de tours :
 
 ```

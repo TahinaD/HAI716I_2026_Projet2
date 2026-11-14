@@ -1,4 +1,6 @@
-Vendredi 13/11/2026 :
+# Projet 2 HAI716I 2026 - Journal de bord DOMBROWSKI Tahina
+
+## Vendredi 13/11/2026 :
 20 tours, ALL-D contre RANDOM, graine de 40.
 Problèmes de relation main/StratPlayer (attributs définits const, dédoublage des variables hors classe)
 
@@ -13,18 +15,43 @@ ALL-D vs JOSS : Egalite si Joss commence par D, ALL-D gagne sinon
 
 TIT-FOR-TAT perd contre RANDOM car RANDOM trahit du tour 5 jusqu'à la fin, donc TIT-FOR-TAT ne récupère pas la différence.
 
-Vendredi 13/11/2026 :
+Résultat du tournoi Axlrod 10 tours.
+
+![screenshot](TOUS_vs_TOUS_10_tours.png)
+
+## Samedi 14/11/2026 :
 10 tours, tous contre tous, graine 40.
 J'ai mal lu le critère de classement du tournoi (je pensais que c'était par nombre de parties gagnées au lieu du nombre de points accumulés au total au cours du tournoi).
 Le classement est le même. TIT-FOR-TAT perd contre ALL-D car ALL-D gagne contre tous, et JOSS bat TIT-FOR-TAT en commençant par D.
 
 Nouvelles stratégies, toutes deux issues de mon imagination :
-- ALTERNATOR-C : C au premier tour, puis effectue le choix opposé à celui qu'il a fait au tour précédent. Commence par C pour mettre en confiance les testeurs de coopération comme TESTER.
+- ALTERNATOR-C : C au premier tour, puis effectue le choix opposé à celui qu'il a fait au tour précédent. Commence par C pour mettre en confiance les testeurs de coopération comme TESTER. Egalise les stratégies types TIT-FOR-TAT.
 - FOUR-T : Ten Turn Trust Tester, effectue C durant les 5 premiers tours, puis D durant les 5 suivant, puis change de stratégie selon les réponses de l'adversaire au bout de ces 10 tours :
     * majoritairement C peu importe son choix : TESTER (essaye de soutirer des points) 
     * majoritairement D peu importe son choix : ALL-D (stratégie défensive)
     * majoritairement C s'il choisit C et majoritairement D s'il choisit D : TIT-FOR-TAT (réciproque par sécurité)
     * majoritairement D s'il choisit C et majoritairement C s'il choisit D : ALTERNATORC (peut trahir après une trahison)
-A évolué en Thirty TTT : mallus des 15 tours de coopération. Avoir ALL-D comme stratégie après n'importe quelle décision aurait été plus efficace, mais moins intéressant.
+
+![screenshot](FOUR-T_strat_switch.png)
+
+A évolué en Thirty TTT : mallus des 15 tours de coopération. Avoir ALL-D comme stratégie après n'importe quelle décision aurait été plus efficace, mais moins intéressant. La stratégie la plus intéressante à étudier de base est TESTER. Un match test pour T = 10 puis pour T = 30 en 40 tours a été effectué :
+
+![screenshot](Result_FOUR-T_vs_TESTER_T10.png)
+
+![screenshot](Result_FOUR-T_vs_TESTER_T30.png)
+
+FOUR-T paie le prix des T/2 choix de coopération pour l'estimation du comportement adverse : un écart se creuse lorsque T augmente. On pourrait envisager une estimation en jouant TIT-FOR-TAT, ou en alternant tous les 5 tours. Résultat des matchs FOUR-T (points remis à 0) :
+
+![screenshot](FOUR-T_results.png)
 
 Ajout de deux arguments : choix entre FOUR-T contre tous en 40 tours chacun, ou tournoi Axelrod de 200 tours chacun + afficher les choix/résultats de chaque tour ou juste le résultat de chaque partie.
+
+Résultats du tournoi Axelrod avec les deux nouvelles stratégies :
+
+![screenshot](Axelrod_FOUR-T_ALTC.png)
+
+Ajout de l'option de tournoi Axelrod 200 tours avec les cinq stratégies de bases :
+
+![screenshot](Axelrod_base.png)
+
+TIT-FOR-TAT gagne bien cette fois.

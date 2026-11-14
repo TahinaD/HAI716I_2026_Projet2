@@ -67,9 +67,10 @@ void podium(vector<StratPlayer> players, int nStrats) {
 }
 
 int main(int argc, char** argv) {
-	if ((argc != 2 && argc != 3) || (strcmp(argv[1], "ft") && strcmp(argv[1], "axelrod")) || (argc == 3 && strcmp(argv[2], "print_turns"))) {
+	if ((argc != 2 && argc != 3) || (strcmp(argv[1], "ft") && strcmp(argv[1], "axelrod") && strcmp(argv[1], "axelrod_base")) || (argc == 3 && strcmp(argv[2], "print_turns"))) {
 		cout << "Argument 1 : " << endl;
 		cout << "- ft : FOUR-T contre tous, 40 tours" << endl;
+		cout << "- axelrod_base : tournoi Axelrod tous contre tous, 200 tours, sans FOUR-T et ALTERNATOR-C" << endl;
 		cout << "- axelrod : tournoi Axelrod tous contre tous, 200 tours" << endl;
 		cout << "Argument 2 (optionel) : " << endl;
 		cout << "- print_turns : affiche les coups de chaque tours et le total des points apres le tour" << endl;
@@ -93,8 +94,9 @@ int main(int argc, char** argv) {
 		}
 	}
 
-	if (!strcmp(argv[1], "axelrod")) {
+	if (!strcmp(argv[1], "axelrod") || !strcmp(argv[1], "axelrod_base")) {
 		ntour = 200;
+		nStrats -= (!strcmp(argv[1], "axelrod_base") ? 2 : 0);
 		for (int i = 0; i < nStrats; i++) {
 			for (int j = i+1; j < nStrats; j++)
 				partie(players[i], players[j], ntour, false, printTurns);
