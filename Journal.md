@@ -17,7 +17,7 @@ TIT-FOR-TAT perd contre RANDOM car RANDOM trahit du tour 5 jusqu'à la fin, donc
 
 Résultat du tournoi Axlrod 10 tours.
 
-![screenshot](TOUS_vs_TOUS_10_tours.png)
+![screenshot](Screenshots/TOUS_vs_TOUS_10_tours.png)
 
 ## Samedi 14/11/2026 :
 10 tours, tous contre tous, graine 40.
@@ -32,27 +32,27 @@ Nouvelles stratégies, toutes deux issues de mon imagination :
     * majoritairement C s'il choisit C et majoritairement D s'il choisit D : TIT-FOR-TAT (réciproque par sécurité)
     * majoritairement D s'il choisit C et majoritairement C s'il choisit D : ALTERNATOR-C (peut trahir après une trahison)
 
-![screenshot](FOUR-T_strat_switch.png)
+![screenshot](Screenshots/FOUR-T_strat_switch.png)
 
 A évolué en Thirty TTT (15 C puis 15 D puis changement de stratégie) : mallus des 15 tours de coopération. Avoir ALL-D comme stratégie après n'importe quelle décision aurait été plus efficace, mais moins intéressant. La stratégie la plus intéressante à étudier de base est TESTER. Un match test pour T = 10 puis pour T = 30 en 40 tours a été effectué :
 
-![screenshot](Result_FOUR-T_vs_TESTER_T10.png)
+![screenshot](Screenshots/Result_FOUR-T_vs_TESTER_T10.png)
 
-![screenshot](Result_FOUR-T_vs_TESTER_T30.png)
+![screenshot](Screenshots/Result_FOUR-T_vs_TESTER_T30.png)
 
 FOUR-T paie le prix des T/2 choix de coopération pour l'estimation du comportement adverse : un écart se creuse lorsque T augmente. On pourrait envisager une estimation en jouant TIT-FOR-TAT, ou en alternant tous les 5 tours. Résultat des matchs FOUR-T (points remis à 0) :
 
-![screenshot](FOUR-T_results.png)
+![screenshot](Screenshots/FOUR-T_results.png)
 
 Ajout de deux arguments : choix entre FOUR-T contre tous en 40 tours chacun, ou tournoi Axelrod de 200 tours chacun + afficher les choix/résultats de chaque tour ou juste le résultat de chaque partie.
 
 Résultats du tournoi Axelrod avec les deux nouvelles stratégies :
 
-![screenshot](Axelrod_FOUR-T_ALTC.png)
+![screenshot](Screenshots/Axelrod_FOUR-T_ALTC.png)
 
 Ajout de l'option de tournoi Axelrod 200 tours avec les cinq stratégies de bases :
 
-![screenshot](Axelrod_base.png)
+![screenshot](Screenshots/Axelrod_base.png)
 
 TIT-FOR-TAT gagne bien cette fois. Il est battu par ALL-D dans le tournoi élargi car ALL-D gagne des points sur les stratégies qui choisissent régulièrement C (RANDOM, ALTERNATOR-C, les T/2 premiers tours de FOUR-T), ce qui lui permet de creuser un écart avec TIT-FOR-TAT grâce aux points de trahison. FOUR-T et ALTERNATOR-C n'ont battu que RANDOM dans le classement car ALTERNATOR-C prend beaucoup de trahison, et FOUR-T est générallement pénalisé durant le test C.
 
@@ -70,7 +70,7 @@ Prédiction bruit 5% :
 
 Résultats :
 
-![screenshot](Axelrod_noise_0.05.png)
+![screenshot](Screenshots/Axelrod_noise_0.05.png)
 
 A ma grande surprise, FOUR-T est classé deuxième. L'inversement de coup biaise l'estimation de FOUR-T, qui pense que la réponse de l'adversaire est celle du choix qu'il a fait initialement, et non de son inverse. Pour ce qui était initalement un TIT-FOR-TAT leaning avec une faible majorité de réponse réciproque, un changement peut renverser totalement la différence C-D, ce qui change entièrement la stratégie choisie par FOUR-T. De plus, un changement tôt durant la phase C face à TESTER active son mode TIT-FOR-TAT, le forçant ainsi à rester coopératif après le changement, au lieu de trahir une fois sur trois. Les stratégies ne savent pas que leurs propres ont été inversés, donc ALTERNATOR-C agit comme s'il a bien joué C au lieu de D s'il y a trois D d'affilé.
 
@@ -85,6 +85,6 @@ Prédiction horizon inconnu 95% :
 
 Résultats :
 
-![screenshot](Axelrod_noise_0.05.png)
+![screenshot](Screenshots/Axelrod_noise_0.05.png)
 
 ... J'ai clairement sous-estimé l'impact des 5% d'interromptre une partie. Il s'avère que certaines parties durent moins de 5 tours, tandis que d'autres durent plus de 20. Cela crée un déséquilibre conséquent, car ceux qui ont les tours les plus courts obtiennent le moins de points, et pour cette graine, ALL-D reçoit clairement ce désavantage.
