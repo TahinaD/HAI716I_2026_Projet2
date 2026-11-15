@@ -25,7 +25,7 @@ Avec l'affichage des tours :
 
 choix du format : ft - axelrod_base - axelrod - axelrod_bruit - axelrod_horizon_inconnu
 
-###Exemples :
+### Exemples :
 
 FOUR-T contre tous sans affichage des résultats de tours :
 
