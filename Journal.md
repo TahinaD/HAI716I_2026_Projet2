@@ -85,6 +85,6 @@ Prédiction horizon inconnu 95% :
 
 Résultats :
 
-![screenshot](Screenshots/Axelrod_noise_0.05.png)
+![screenshot](Screenshots/Axelrod_horizon_inconnu.png)
 
 ... J'ai clairement sous-estimé l'impact des 5% d'interromptre une partie. Il s'avère que certaines parties durent moins de 5 tours, tandis que d'autres durent plus de 20. Cela crée un déséquilibre conséquent, car ceux qui ont les tours les plus courts obtiennent le moins de points, et pour cette graine, ALL-D reçoit clairement ce désavantage.
