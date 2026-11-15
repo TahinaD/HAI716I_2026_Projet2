@@ -55,3 +55,36 @@ Ajout de l'option de tournoi Axelrod 200 tours avec les cinq stratégies de base
 ![screenshot](Axelrod_base.png)
 
 TIT-FOR-TAT gagne bien cette fois.
+
+## Dimanche 15/11/2026 :
+Modifications choisies : Bruit et Horizon inconnu, toutes deux des modifications ajoutant de l'aléa dans les parties, ce qui peut potentiellement démarquer les stratégies qui étaient à égalité ou avaient un avantage par rapport au nombre de tour. Ces modifications affecteront l'estimation de FOUR-T avec T = 30 (bruit) et ses chances de réussite (horizon inconnu).
+
+Prédiction bruit 5% :
+1. ALL-D (pas de changement significatif)
+2. JOSS (peut peut-être battre TIT-FOR-TAT)
+3. TIT-FOR-TAT
+4. TESTER (le changement s'effectuera probablement plus sur la partie TIT-FOR-TAT)
+5. FOUR-T (dépend de l'adversaire)
+6. ALTERNATOR-C (le comportement ne change pas)
+7. RANDOM (même comportement peu importe le changement)
+
+Résultats :
+
+![screenshot](Axelrod_noise_0.05.png)
+
+A ma grande surprise, FOUR-T est classé deuxième. L'inversement de coup biaise l'estimation de FOUR-T, qui pense que la réponse de l'adversaire est celle du choix qu'il a faut, et non de son inverse. Pour ce qui était initallement un TIT-FOR-TAT leaning avec une faible majorité de réponse réciproque, un changement peut renverser totallement la différence C-D, ce qui change entièrement la stratégie choisie par FOUR-T. De plus, un changement tôt durant la phase C face à TESTER active son mode TIT-FOR-TAT, le forçant ainsi à rester coopératif après le changement, au lieu de trahir une fois sur trois.
+
+Prédiction horizon inconnu 95% :
+1. ALL-D (pas de changement significatif)
+2. JOSS (avantage du 10% par rapport à TIT-FOR-TAT)
+3. TIT-FOR-TAT
+4. ALTERNATOR-C (les stratégies en dessous commencent la plupart du temps par C)
+5. TESTER (possibilité que TESTER perd un tour lui permettant de rattraper son test)
+6. FOUR-T (dépend de l'adversaire)
+7. RANDOM (même comportement peu importe le changement)
+
+Résultats :
+
+![screenshot](Axelrod_noise_0.05.png)
+
+... J'ai clairement sous-estimé l'impact des 5% d'interromptre une partie. Il s'avère que certaines parties durent moins de 5 tours, tandis que d'autres durent plus de 20. Cela crée un déséquilibre conséquent, car ceux qui ont les tours les plus court ont le moins de points, et pour cette graine, ALL-D reçoit clairement ce désavantage.
